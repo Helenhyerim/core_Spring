@@ -2,7 +2,7 @@ package hello.core.member;
 
 public class MemberServiceImpl implements MemberService{
 
-    // 추상과 구현체 동시에 의존하고 있다 DIP 위반
+    // 추상에만 의존하게 수정
     private final MemberRepository memberRepository;
 
     // MemoryMemberRepository에 관한 코드가 전혀 없게 되고, MemberRepository 인터페이스만 존재
@@ -22,5 +22,10 @@ public class MemberServiceImpl implements MemberService{
     public Member findMember(Long memberId) {
 
         return memberRepository.findById(memberId);
+    }
+
+    // 테스트용도
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
     }
 }

@@ -19,18 +19,24 @@ public class AppConfig {
     // 생성자 주입, DI
     // 리팩토링(중복 제거, 역할과 구현의 클래스가 한눈에 들어오게)
     // Spring Container 에 등록
+    // @Bean memberService -> new MemoryMemberRepository();
+    // @Bean orderService -> new MemoryMemberRepository();
+    // 각각 다른 2개의 new MemoryMemberRepository(); 가 생성되면서 싱글톤이 깨지는 것처럼 보인다
     @Bean
     public MemberService memberService() {
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
 
     @Bean
     public MemberRepository memberRepository() {
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
     @Bean
     public OrderService orderService() {
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
